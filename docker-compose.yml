@@ -1,0 +1,23 @@
+version: "3.4"
+
+services:
+  interview:
+    build: .
+    container_name: interview
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:13
+    volumes:
+      - postgresdata:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+volumes:
+  postgresdata:
